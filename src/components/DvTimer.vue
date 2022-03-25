@@ -12,7 +12,7 @@ function getNowTime() {
   const m = myDate.getMinutes()
   const s = myDate.getSeconds()
   const w = myDate.getDay()
-  return `${y}-${check(M)}-${check(d)} ${check(h)}:${check(m)}:${check(s)} ${week[w]}`
+  return `${y}-${check(M)}-${check(d)} ${week[w]} ${check(h)}:${check(m)}:${check(s)}`
 }
 
 // 时间数字小于10，则在之前加个“0”补位
