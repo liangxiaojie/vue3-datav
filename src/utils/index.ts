@@ -4,7 +4,7 @@
  * @param delay 延迟时间（ms）
  * @returns 防抖函数
  */
-export function debounce(fn: Function, delay = 100) { // eslint-disable-line
+ export function debounce(fn: Function, delay = 100) { // eslint-disable-line
   let lastTime: number
   return function (this: any) {
     clearTimeout(lastTime)

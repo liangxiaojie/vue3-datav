@@ -1,3 +1,4 @@
-import fullScreenContainer from './components/DvFullScreenContainer.vue'
+import dvFullScreenContainer from './components/DvFullScreenContainer.vue'
+import dvTimer from './components/DvTimer.vue'
 
-export { fullScreenContainer }
+export { dvFullScreenContainer, dvTimer }
