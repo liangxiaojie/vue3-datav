@@ -1,63 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick, onUnmounted } from 'vue'
-import { debounce, observerDomResize } from '../utils'
-
-onMounted(() => {
-  autoResizeInit()
-})
-
-onUnmounted(() => {
-  unbindDomResizeCallback()
-})
+import { ref } from 'vue'
+import { useAutoResize } from '../utils/autoResize'
 
 const ready = ref(false)
 const FullScreenContainer = ref<HTMLElement | null>(null)
-let dom: HTMLElement | null, width: number
+const allWidth = window.screen.width
 
-async function autoResizeInit() {
-  await initWH(false)
-  bindDomResizeCallback()
-  afterAutoResizeInit()
-}
-
-function initWH(resize = true) {
-  return new Promise(resolve => {
-    nextTick(() => {
-      dom = FullScreenContainer.value
-      width = dom ? dom.clientWidth : 0
-      resize && setAppScale()
-      resolve(1)
-    })
-  })
-}
+useAutoResize(FullScreenContainer, setAppScale, afterAutoResizeInit)
 
 function afterAutoResizeInit() {
   const { width, height } = window.screen
-  dom!.style.width = `${width}px`
-  dom!.style.height = `${height}px`
+  FullScreenContainer.value!.style.width = `${width}px`
+  FullScreenContainer.value!.style.height = `${height}px`
   setAppScale()
   ready.value = true
 }
 
 function setAppScale() {
   const currentWidth = document.body.clientWidth
-  dom!.style.transform = `scale(${currentWidth / width})`
-}
-
-let domObserver: MutationObserver | null, debounceInitWHFun: any
-
-function bindDomResizeCallback() {
-  debounceInitWHFun = debounce(initWH)
-  domObserver = observerDomResize(dom!, debounceInitWHFun)
-  window.addEventListener('resize', debounceInitWHFun)
-}
-
-function unbindDomResizeCallback() {
-  if (!domObserver) return
-  domObserver.disconnect()
-  domObserver.takeRecords()
-  domObserver = null
-  window.removeEventListener('resize', debounceInitWHFun)
+  FullScreenContainer.value!.style.transform = `scale(${currentWidth / allWidth})`
 }
 </script>
 

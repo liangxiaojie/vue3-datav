@@ -4,13 +4,12 @@
  * @param delay 延迟时间（ms）
  * @returns 防抖函数
  */
- export function debounce(fn: Function, delay = 100) { // eslint-disable-line
+ export function debounce<T>(fn: Function, delay = 100) {
   let lastTime: number
-  return function (this: any) {
+  return function (this: T, ...args: T[]) {
     clearTimeout(lastTime)
-    const [that, args] = [this, arguments] // eslint-disable-line
     lastTime = setTimeout(() => {
-      fn.apply(that, args)
+      fn.apply(this, ...args)
     }, delay)
   }
 }
@@ -23,10 +22,6 @@
  */
 export function observerDomResize(target: Node, callback: MutationCallback) {
   const observer = new window.MutationObserver(callback)
-  observer.observe(target, {
-    attributes: true,
-    attributeFilter: ['style'],
-    attributeOldValue: true,
-  })
+  observer.observe(target, { attributes: true, attributeFilter: ['style'], attributeOldValue: true })
   return observer
 }
