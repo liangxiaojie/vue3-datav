@@ -4,7 +4,7 @@
  * @param delay 延迟时间（ms）
  * @returns 防抖函数
  */
- export function debounce<T>(fn: Function, delay = 100) {
+export function debounce<T>(fn: Function, delay = 100) {
   let lastTime: number
   return function (this: T, ...args: T[]) {
     clearTimeout(lastTime)
@@ -24,4 +24,33 @@ export function observerDomResize(target: Node, callback: MutationCallback) {
   const observer = new window.MutationObserver(callback)
   observer.observe(target, { attributes: true, attributeFilter: ['style'], attributeOldValue: true })
   return observer
+}
+
+/**
+ * 随机生成UUID
+ * @param hasHyphen 是否含连字符'-'
+ * @returns 生成的UUID
+ */
+export function uuid(hasHyphen?: boolean) {
+  return (hasHyphen ? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx' : 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0
+    const v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+/**
+ * 深度合并多个对象，后面对象的优先级更高
+ * @param objs 要合并的对象
+ * @returns 合并后的对象
+ */
+export function deepMerge(...objs: any[]) {
+  return [...objs].reduce(
+    (acc, obj) =>
+      Object.keys(obj).reduce((a, k) => {
+        acc[k] = acc[k] && acc[k].toString() === '[object Object]' ? deepMerge(acc[k], obj[k]) : obj[k]
+        return acc
+      }, {}),
+    {}
+  )
 }
