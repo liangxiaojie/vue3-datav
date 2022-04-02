@@ -18,6 +18,7 @@ import {
   DvBorderBox13,
   DvBorderBox14,
 } from './components/borderBox'
+import DvScrollRankingBoard from './components/DvScrollRankingBoard.vue'
 
 export {
   DvFullScreenContainer,
@@ -37,6 +38,7 @@ export {
   DvBorderBox12,
   DvBorderBox13,
   DvBorderBox14,
+  DvScrollRankingBoard,
 }
 
 export default function (app: App) {
@@ -57,4 +59,5 @@ export default function (app: App) {
   app.component('DvBorderBox12', DvBorderBox12)
   app.component('DvBorderBox13', DvBorderBox13)
   app.component('DvBorderBox14', DvBorderBox14)
+  app.component('DvScrollRankingBoard', DvScrollRankingBoard)
 }

@@ -45,12 +45,13 @@ export function uuid(hasHyphen?: boolean) {
  * @returns 合并后的对象
  */
 export function deepMerge(...objs: any[]) {
-  return [...objs].reduce(
-    (acc, obj) =>
-      Object.keys(obj).reduce((a, k) => {
-        acc[k] = acc[k] && acc[k].toString() === '[object Object]' ? deepMerge(acc[k], obj[k]) : obj[k]
-        return acc
-      }, {}),
-    {}
-  )
+  return [...objs].reduce((acc, obj) => {
+    const objKeys = Object.keys(obj)
+    return objKeys.length > 0
+      ? objKeys.reduce((a, k) => {
+          acc[k] = acc[k] && acc[k].toString() === '[object Object]' ? deepMerge(acc[k], obj[k]) : obj[k]
+          return acc
+        }, {})
+      : acc
+  }, {})
 }
