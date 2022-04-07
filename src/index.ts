@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import DvFullScreenContainer from './components/DvFullScreenContainer.vue'
+import DvFullScreenButton from './components/DvFullScreenButton.vue'
 import DvTimer from './components/DvTimer.vue'
 import DvButton from './components/DvButton.vue'
 import {
@@ -22,6 +23,7 @@ import DvScrollRankingBoard from './components/DvScrollRankingBoard.vue'
 
 export {
   DvFullScreenContainer,
+  DvFullScreenButton,
   DvTimer,
   DvButton,
   DvBorderBox1,
@@ -43,6 +45,7 @@ export {
 
 export default function (app: App) {
   app.component('DvFullScreenContainer', DvFullScreenContainer)
+  app.component('DvFullScreenButton', DvFullScreenButton)
   app.component('DvTimer', DvTimer)
   app.component('DvButton', DvButton)
   app.component('DvBorderBox1', DvBorderBox1)
