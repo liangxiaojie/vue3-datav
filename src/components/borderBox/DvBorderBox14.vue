@@ -36,6 +36,7 @@ const { width, height } = useAutoResize(boxRef)
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  backdrop-filter: blur(6px);
   .dv-border-svg-container {
     position: absolute;
     display: block;
